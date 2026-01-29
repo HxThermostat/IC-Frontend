@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "459856088483",
+    "project_id": "intellicomfort",
+    "storage_bucket": "intellicomfort.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:459856088483:android:9b3c7edfec39c72fb31e16",
+        "android_client_info": {
+          "package_name": "com.jci.thermostat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDY_TUwtS9lIyw-5-9v5A20M60oMqtC7lQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

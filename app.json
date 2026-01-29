@@ -1,0 +1,52 @@
+{
+  "expo": {
+    "name": "IntelliComfort",
+    "slug": "IntelliComfort",
+    "scheme": "IntelliComfort",
+    "version": "3.2.1",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "plugins": [
+      "expo-dev-client",
+      "expo-secure-store"
+    ],
+    "updates": {
+      "enabled": false
+    },
+    "android": {
+      "package": "com.jci.thermostat",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyBsXR8L_lNqMcuEKImXOO_aIxQgOYcJq1U"
+        }
+      }
+    },
+    "ios": {
+      "bundleIdentifier": "com.jci.intellicomfort",
+      "infoPlist": {
+        "LSApplicationQueriesSchemes": [
+          "mailto",
+          "message",
+          "readdle-spark",
+          "airmail",
+          "ms-outlook",
+          "googlegmail",
+          "inbox-gmail",
+          "ymail",
+          "superhuman",
+          "yandexmail",
+          "fastmail",
+          "protonmail"
+        ],
+        "NSUserNotificationUsageDescription": "We use notifications to alert you about updates and alerts.",
+        "UIBackgroundModes": ["remote-notification"]
+      }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "YOUR_EAS_PROJECT_ID"
+      }
+    }
+  }
+}

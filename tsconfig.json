@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react-native",
+    "moduleResolution": "bundler",
+    "noEmit": true,
+    "lib": ["dom", "esnext"],
+    "types": ["react", "react-native"],
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",  
+    "paths": {
+      "~/*": ["./*"]
+    }
+  },
+  "extends": "@react-native/typescript-config/tsconfig.json",
+  "exclude": [
+    "**/node_modules",
+  ]
+}

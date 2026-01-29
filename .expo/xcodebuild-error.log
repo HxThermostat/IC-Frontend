@@ -1,0 +1,7 @@
+** BUILD FAILED **
+
+
+The following build commands failed:
+	CompileStoryboard /Users/harsh/Desktop/intellicomfort/IntelliComfort/node_modules/expo-dev-launcher/ios/Views/EXDevLauncherErrorView.storyboard (in target 'expo-dev-launcher-EXDevLauncher' from project 'Pods')
+	Building workspace IntelliComfort with scheme IntelliComfort and configuration Debug
+(2 failures)
