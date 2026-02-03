@@ -28,7 +28,7 @@ export default function ControlledDialSingle({
 
   const [targetSetpoint, setTargetSetpoint] = useState(setpoint);
 
-  const onChangeSetpointDual = useCallback(
+  const onChangeSetpointSingle = useCallback(
     (newTarget: number) => {
       setTargetSetpoint((current) => {
         if (equal(current.value, newTarget)) return current;
@@ -51,11 +51,11 @@ export default function ControlledDialSingle({
     if (allowUpdateFromCache()) {
       setTargetSetpoint(setpoint);
     }
-  }, [allowUpdateFromCache, setpoint, targetSetpoint.value]);
+  }, [allowUpdateFromCache, setpoint]);
 
   return (
     <StaticDialSingle
-      onChange={onChangeSetpointDual}
+      onChange={onChangeSetpointSingle}
       targetSetpoint={targetSetpoint}
     />
   );

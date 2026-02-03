@@ -86,17 +86,22 @@ const ControlledDial = ({
     onError: decrement,
   });
 
-  const changeSetpoint = useDebouncedCallback(
-    useCallback<typeof changeSetpointMutation>(
-      (options) => {
-        increment();
-        return changeSetpointMutation(options);
-      },
-      [changeSetpointMutation, increment]
-    ),
-    500,
-    { leading: true }
-  );
+  // FIX: Separate the debounced mutation from the increment logic
+  const debouncedMutation = useDebouncedCallback(
+  (options: Parameters<typeof changeSetpointMutation>[0]) => {
+    return changeSetpointMutation(options);
+  },
+  500,
+  { leading: true, trailing: true, maxWait: 1000 }
+);
+
+const changeSetpoint = useCallback(
+  (options: Parameters<typeof changeSetpointMutation>[0]) => {
+    increment();
+    return debouncedMutation(options);
+  },
+  [debouncedMutation, increment]
+) as typeof changeSetpointMutation;
 
   // We want the underlying components to update their internal state
   // based on data in the cache only when there are no outstanding
