@@ -6,7 +6,8 @@ import WhiteLabelConstants from "~/utils/white-label";
 //   ? process.env.GRAPH_URL ?? WhiteLabelConstants.GRAPH_URL
 //   : WhiteLabelConstants.GRAPH_URL;
 
-export const GRAPH_URL = "https://intellicomfort.yoursysteminfo.com/";
+export const GRAPH_URL = process.env.GRAPH_URL;
+export const WEB_HOST = process.env.WEB_HOST;
 
 export const URI_SCHEME = __DEV__
   ? process.env.URI_SCHEME ?? WhiteLabelConstants.URI_SCHEME
