@@ -23,6 +23,7 @@
   },
   "graph_url": "https://intellicomfort.yoursysteminfo.com",
   "host_name": "intellicomfort.yoursysteminfo.com",
+  "graph_url_dev": "https://intellicomfort-development.yoursysteminfo.com/",
   "ios_store_id": "794980960",
   "light_colors": {
     "cool": "#0031FF",

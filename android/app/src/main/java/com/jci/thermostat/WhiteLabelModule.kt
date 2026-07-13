@@ -19,7 +19,11 @@ class WhiteLabelModule(context: ReactApplicationContext) : ReactContextBaseJavaM
         try {
             val json = JSONObject(loadJSONFromAssets() ?: "")
             val envValues = loadEnvValues()
-            val graphUrl = envValues["GRAPH_URL"] ?: json.optString("graph_url")
+            val graphUrl = envValues["GRAPH_URL"] ?: if (BuildConfig.DEBUG) {
+                json.optString("graph_url_dev", json.optString("graph_url"))
+            } else {
+                json.optString("graph_url")
+            }
             val uriScheme = envValues["URI_SCHEME"] ?: json.optString("uri_scheme")
             val androidStoreID = json.getString("android_store_id")
             val lightColors = json.getJSONObject("light_colors")
