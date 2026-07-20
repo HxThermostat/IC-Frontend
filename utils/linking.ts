@@ -1,7 +1,7 @@
 import { Linking, Platform } from "react-native";
 import { openInbox } from "react-native-email-link";
 
-import { URI_SCHEME } from "~/config/constants";
+import { URI_SCHEME, WEB_HOST } from "~/config/constants";
 
 import { addExceptionBreadcrumb, captureMessage } from "~/utils/sentry";
 
@@ -53,7 +53,5 @@ export function clearLink(): void {
 }
 
 export const deepLinkInitialURL = (url: string): void => {
-  attemptToOpenURL(
-    url.replace(`https://${URI_SCHEME}.kraftful.app/`, `${URI_SCHEME}://`)
-  );
+  attemptToOpenURL(url.replace(`https://${WEB_HOST}/`, `${URI_SCHEME}://`));
 };

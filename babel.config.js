@@ -1,5 +1,6 @@
 module.exports = function (api) {
-  api.cache(true);
+  const isProduction = api.env('production');
+  const envFile = isProduction ? '.env.production' : '.env.development';
 
   return {
     // 🚨 Make sure this is first and at the top level
@@ -15,7 +16,7 @@ module.exports = function (api) {
           },
         },
       ],
-      ['inline-dotenv', { systemVar: 'overwrite' }],
+      ['inline-dotenv', { path: envFile, systemVar: 'overwrite' }],
       // This MUST stay last in the list
       'react-native-reanimated/plugin',
     ],
@@ -32,7 +33,7 @@ module.exports = function (api) {
               },
             },
           ],
-          ['inline-dotenv', { systemVar: 'overwrite' }],
+          ['inline-dotenv', { path: envFile, systemVar: 'overwrite' }],
           ['react-native-paper/babel'],
           ['transform-remove-console'],
           'react-native-reanimated/plugin',

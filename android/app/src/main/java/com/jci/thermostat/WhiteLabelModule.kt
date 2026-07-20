@@ -18,8 +18,13 @@ class WhiteLabelModule(context: ReactApplicationContext) : ReactContextBaseJavaM
 
         try {
             val json = JSONObject(loadJSONFromAssets() ?: "")
-            val graphUrl = json.getString("graph_url")
-            val uriScheme = json.getString("uri_scheme")
+            val envValues = loadEnvValues()
+            val graphUrl = envValues["GRAPH_URL"] ?: if (BuildConfig.DEBUG) {
+                json.optString("graph_url_dev", json.optString("graph_url"))
+            } else {
+                json.optString("graph_url")
+            }
+            val uriScheme = envValues["URI_SCHEME"] ?: json.optString("uri_scheme")
             val androidStoreID = json.getString("android_store_id")
             val lightColors = json.getJSONObject("light_colors")
             val darkColors = json.getJSONObject("dark_colors")
@@ -50,6 +55,28 @@ class WhiteLabelModule(context: ReactApplicationContext) : ReactContextBaseJavaM
         } catch (ex: IOException) {
             ex.printStackTrace()
             null
+        }
+    }
+
+    private fun loadEnvValues(): Map<String, String> {
+        return try {
+            val envFileName = if (BuildConfig.DEBUG) ".env.development" else ".env.production"
+            val envFile = java.io.File("${reactApplicationContext.filesDir.parentFile?.absolutePath}/assets/$envFileName")
+            if (!envFile.exists()) {
+                return emptyMap()
+            }
+            val content = envFile.readText(Charsets.UTF_8)
+            content.lines()
+                .filter { it.contains("=") }
+                .associate { line ->
+                    val parts = line.split("=", limit = 2)
+                    val key = parts[0].trim()
+                    val value = parts[1].trim().removeSurrounding("\"")
+                    key to value
+                }
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+            emptyMap()
         }
     }
 

@@ -8,7 +8,7 @@ import {
 
 import { addNotificationReceivedListener } from "expo-notifications";
 
-import { URI_SCHEME } from "~/config/constants";
+import { URI_SCHEME, WEB_HOST } from "~/config/constants";
 
 import { insertSiblingRoute, AppRoute } from "./helpers";
 
@@ -98,7 +98,7 @@ const config = (
 const deepLinkingConfig = (
   options: DeepLinkingConfigOptions
 ): LinkingOptions => ({
-  prefixes: [`${URI_SCHEME}://`, `https://${URI_SCHEME}.kraftful.app`],
+  prefixes: [`${URI_SCHEME}://`, `https://${WEB_HOST}`],
   config: config(options),
   getStateFromPath: (path, options) => {
     const state = getStateFromPath(path, options);
