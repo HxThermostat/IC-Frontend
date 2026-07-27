@@ -9,7 +9,9 @@
     ],
     "plugins": [
       "expo-dev-client",
-      "expo-secure-store"
+      "expo-secure-store",
+      "@react-native-community/datetimepicker",
+      "sentry-expo"
     ],
     "updates": {
       "enabled": false
@@ -40,7 +42,9 @@
           "protonmail"
         ],
         "NSUserNotificationUsageDescription": "We use notifications to alert you about updates and alerts.",
-        "UIBackgroundModes": ["remote-notification"]
+        "UIBackgroundModes": [
+          "remote-notification"
+        ]
       }
     },
     "extra": {
