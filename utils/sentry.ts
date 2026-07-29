@@ -1,11 +1,11 @@
 import { RewriteFrames } from "@sentry/integrations";
 import { CaptureContext } from "@sentry/types";
 import { Platform } from "react-native";
-import * as SentryExpo from "sentry-expo";
+import * as SentryNative from "@sentry/react-native";
 
 import { APP_ID } from "~/config/constants";
 
-export const Sentry = SentryExpo.Native;
+export const Sentry = SentryNative;
 
 export const { addBreadcrumb } = Sentry;
 

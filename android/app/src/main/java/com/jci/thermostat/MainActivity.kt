@@ -3,6 +3,7 @@ import expo.modules.splashscreen.SplashScreenManager
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
@@ -61,5 +62,14 @@ class MainActivity : ReactActivity() {
       // Use the default back button implementation on Android S
       // because it's doing more than [Activity.moveTaskToBack] in fact.
       super.invokeDefaultOnBackPressed()
+  }
+
+  override fun onUserLeaveHint() {
+    try {
+      super.onUserLeaveHint()
+    } catch (e: NullPointerException) {
+      // Guard against a startup/background race where RN delegate internals are not ready yet.
+      Log.w("MainActivity", "Ignoring transient onUserLeaveHint NPE", e)
+    }
   }
 }
