@@ -117,7 +117,6 @@ const AppThemeProvider = ({ children }: AppThemeProviderProps): JSX.Element => {
     <ThemeProvider theme={currentTheme}>
       <StatusBar
         barStyle={appearance === "dark" ? "light-content" : "dark-content"}
-        backgroundColor={"transparent"}
         translucent={Platform.OS === 'ios'}
         animated={true}
       />

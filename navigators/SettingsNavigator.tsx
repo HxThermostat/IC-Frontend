@@ -151,7 +151,6 @@ export default function SettingsNavigator(): JSX.Element {
         {Platform.OS === "ios" && !isIpad && !isTabNavigator && (
           <StatusBar
             barStyle={"light-content"}
-            backgroundColor={"transparent"}
             translucent={true}
             animated={true}
           />

@@ -2,14 +2,17 @@
   "expo": {
     "name": "IntelliComfort",
     "slug": "IntelliComfort",
-    "scheme": "IntelliComfort",
+    "scheme": "intellicomfort",
     "version": "3.2.1",
     "assetBundlePatterns": [
       "**/*"
     ],
     "plugins": [
       "expo-dev-client",
-      "expo-secure-store"
+      "expo-secure-store",
+      "@react-native-community/datetimepicker",
+      "@sentry/react-native",
+      "expo-localization"
     ],
     "updates": {
       "enabled": false
@@ -40,7 +43,9 @@
           "protonmail"
         ],
         "NSUserNotificationUsageDescription": "We use notifications to alert you about updates and alerts.",
-        "UIBackgroundModes": ["remote-notification"]
+        "UIBackgroundModes": [
+          "remote-notification"
+        ]
       }
     },
     "extra": {
