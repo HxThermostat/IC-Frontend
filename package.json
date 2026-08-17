@@ -13,7 +13,7 @@
 	"dependencies": {
 		"@apollo/client": "^3.13.8",
 		"@babel/helper-string-parser": "^7.27.1",
-		"@gorhom/bottom-sheet": "^4.6.1",
+		"@gorhom/bottom-sheet": "^5.1.4",
 		"@graphql-codegen/cli": "^5.0.7",
 		"@graphql-codegen/fragment-matcher": "^5.1.0",
 		"@graphql-codegen/introspection": "^4.0.3",
