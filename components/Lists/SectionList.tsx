@@ -8,6 +8,7 @@ import {
   SectionListData,
   DefaultSectionT,
 } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const noop = () => {};
 
@@ -25,6 +26,8 @@ export type Section<TListData = BaseListItem> = {
   data: TListData[];
 };
 export type Sections<TListData = BaseListItem> = Section<TListData>[];
+
+
 
 type Props = Pick<
   SectionListProps<BaseListItem, Section>,
@@ -54,6 +57,7 @@ export function SectionListDefaults<ItemT, SectionT = DefaultSectionT>({
   sections: ReadonlyArray<SectionListData<ItemT, SectionT>>;
 }): JSX.Element {
   const { spacing } = useTheme();
+  const insets = useSafeAreaInsets();
 
   const footerStyles = useMemo(
     () =>
@@ -73,8 +77,8 @@ export function SectionListDefaults<ItemT, SectionT = DefaultSectionT>({
       });
     },
     contentContainerStyle: Platform.select({
-      ios: { paddingTop: spacing.xl },
-      default: { marginTop: spacing.l },
+      ios: { paddingTop: spacing.xl , paddingBottom: insets.bottom,},
+      default: { marginTop: spacing.l, paddingBottom: insets.bottom, },
     }),
     contentInsetAdjustmentBehavior: "automatic",
     initialNumToRender: 20,
