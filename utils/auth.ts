@@ -79,7 +79,7 @@ const setTokenUnsafe = async (token: Token): Promise<void> => {
       [REFRESH_TOKEN_KEY, token.refreshToken],
       [EXPIRES_AT_KEY, token.expiresAt.toString()],
     ].map(([key, value]) => {
-      void setItemAsync(key, value, {
+      return setItemAsync(key, value, {
         keychainAccessible: AFTER_FIRST_UNLOCK_THIS_DEVICE_ONLY,
       });
     })
@@ -105,7 +105,7 @@ const expireTokenUnsafe = async (): Promise<void> => {
       [ACCESS_TOKEN_KEY, ""],
       [EXPIRES_AT_KEY, new Date().toString()],
     ].map(([key, value]) => {
-      void setItemAsync(key, value, {
+      return setItemAsync(key, value, {
         keychainAccessible: AFTER_FIRST_UNLOCK_THIS_DEVICE_ONLY,
       });
     })
@@ -132,15 +132,18 @@ export const handleRefresh = async (
     /* eslint-disable-next-line @typescript-eslint/no-misused-promises */
     lock.writeLock(async () => {
       let token: Token | "TokenInvalid" | null = null;
+      let currentToken: Token | null = null;
       try {
-        const currentToken = await getTokenUnsafe();
+        currentToken = await getTokenUnsafe();
         await expireTokenUnsafe();
 
-        token = await p();
-
-        if (token == null) {
+        try {
+          token = await p();
+        } catch {
           token = currentToken;
         }
+
+        token ??= currentToken;
 
         switch (token) {
           case "TokenInvalid":
@@ -151,7 +154,7 @@ export const handleRefresh = async (
             // Restore the token that was set before attempting to
             // refresh
             if (currentToken) {
-              void setTokenUnsafe(currentToken);
+              await setTokenUnsafe(currentToken);
             }
             break;
           default:
@@ -159,11 +162,7 @@ export const handleRefresh = async (
             break;
         }
       } finally {
-        if (token === "TokenInvalid") {
-          resolve(null);
-        } else {
-          resolve(token);
-        }
+        resolve(token);
         lock.unlock();
       }
     });
