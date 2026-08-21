@@ -43,6 +43,35 @@ target 'IntelliComfort' do
           Pod::UI.puts "👉 #{target.name} DEFINES_MODULE was #{config.build_settings['DEFINES_MODULE']}"
         end
         config.build_settings['DEFINES_MODULE'] = 'YES'
+
+        # Work around Archive failures in fmt/Folly with C++20 consteval checks.
+        if ['fmt', 'RCT-Folly'].include?(target.name)
+          config.build_settings['CLANG_CXX_LANGUAGE_STANDARD'] = 'c++17'
+          defs = config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] || ['$(inherited)']
+          defs = [defs] unless defs.is_a?(Array)
+          defs << 'FMT_USE_CONSTEVAL=0' unless defs.include?('FMT_USE_CONSTEVAL=0')
+          defs << 'FMT_USE_NONTYPE_TEMPLATE_ARGS=0' unless defs.include?('FMT_USE_NONTYPE_TEMPLATE_ARGS=0')
+          config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] = defs
+
+          base_config_ref = config.base_configuration_reference
+          if base_config_ref
+            xcconfig_path = base_config_ref.real_path
+            if File.exist?(xcconfig_path)
+              xcconfig_content = File.read(xcconfig_path)
+              updated_content = xcconfig_content
+                .gsub(
+                  /^CLANG_CXX_LANGUAGE_STANDARD\s*=\s*.*$/,
+                  'CLANG_CXX_LANGUAGE_STANDARD = c++17'
+                )
+                .tap do |content|
+                  unless content.match?(/^GCC_PREPROCESSOR_DEFINITIONS\s*=.*FMT_USE_CONSTEVAL=0/m)
+                    content << "\nGCC_PREPROCESSOR_DEFINITIONS = $(inherited) FMT_USE_CONSTEVAL=0 FMT_USE_NONTYPE_TEMPLATE_ARGS=0\n"
+                  end
+                end
+              File.write(xcconfig_path, updated_content) if updated_content != xcconfig_content
+            end
+          end
+        end
       end
     end
   end

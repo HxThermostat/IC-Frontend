@@ -148,10 +148,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 class ReactNativeDelegate: RCTDefaultReactNativeFactoryDelegate {
-  override func sourceURL(for bridge: RCTBridge) -> URL? {
-    self.bundleURL()
-  }
-
   override func customize(_ rootView: RCTRootView) {
     super.customize(rootView)
     // ✅ Ensure splash initializes here

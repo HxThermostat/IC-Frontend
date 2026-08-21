@@ -79,6 +79,7 @@ const TitleBar = ({
               >
                 <ChevronIcon
                   direction="chevron-down"
+                  color="text"
                   size={20}
                   style={styles.titleChevron}
                 />

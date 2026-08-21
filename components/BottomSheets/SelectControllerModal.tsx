@@ -2,8 +2,6 @@ import React, { useCallback, useMemo, useState } from "react";
 
 import { BottomSheetSectionList } from "@gorhom/bottom-sheet";
 
-import { SectionList as RNSectionList } from "react-native";
-
 import BottomSheetModal, {
   BottomSheetModalRef,
 } from "~/components/BottomSheetModal";
@@ -96,7 +94,7 @@ function SelectMode({
   return (
     <SectionListDefaults<BaseListItem> sections={sections}>
       {(defaults) => (
-        <RNSectionList<BaseListItem>
+        <BottomSheetSectionList<BaseListItem>
           {...defaults}
           contentContainerStyle={undefined}
           extraData={controllerId}

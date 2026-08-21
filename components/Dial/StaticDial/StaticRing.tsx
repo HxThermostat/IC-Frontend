@@ -42,6 +42,9 @@ function Ring({
   strokeWidth,
   shadow = false,
 }: RingProps): JSX.Element {
+  const isFabric = Boolean((global as { nativeFabricUIManager?: unknown }).nativeFabricUIManager);
+  const useAndrow = shadow && Platform.OS === "android" && !isFabric;
+
   const {
     dimensions: { r, cx, cy, dialSize: size },
   } = useStaticDial();
@@ -62,7 +65,7 @@ function Ring({
     <Svg
       width={size}
       height={size}
-      style={shadow ? null : StyleSheet.absoluteFill}
+      style={useAndrow ? null : StyleSheet.absoluteFill}
     >
       <Circle
         cx={x0}
@@ -89,7 +92,7 @@ function Ring({
     </Svg>
   );
 
-  return shadow ? (
+  return useAndrow ? (
     <Androw style={[StyleSheet.absoluteFill, styles.shadow]}>{svg}</Androw>
   ) : (
     svg

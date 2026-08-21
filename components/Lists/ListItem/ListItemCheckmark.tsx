@@ -15,6 +15,8 @@ const ListItemCheckmark = ({
   loading,
   position = "left",
 }: ListItemCheckmarkProps): JSX.Element => {
+  const shouldShowCheckmark = !!checked;
+
   return (
     <Box
       paddingLeft={position === "right" ? "m" : undefined}
@@ -22,8 +24,8 @@ const ListItemCheckmark = ({
       width={32}
     >
       {loading && <ActivityIndicator size={16} />}
-      {!loading && (
-        <CheckmarkIcon color={checked ? "text" : "transparent"} size={16} />
+      {!loading && shouldShowCheckmark && (
+        <CheckmarkIcon color="text" size={16} />
       )}
     </Box>
   );
