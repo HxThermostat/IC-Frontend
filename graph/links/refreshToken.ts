@@ -21,15 +21,21 @@ const MAX_DELAY_MS = 8000;
 const refreshMutation = async (
   token: string
 ): Promise<Token | "TokenInvalid" | null> => {
-  const { data } = await client.mutate<
-    RefreshTokenMutation,
-    RefreshTokenMutationVariables
-  >({
-    mutation: RefreshTokenDocument,
-    variables: { input: { token: token } },
-  });
-
-  if (!data) return null;
+  let data;
+  try {
+    ({ data } = await client.mutate<
+      RefreshTokenMutation,
+      RefreshTokenMutationVariables
+    >({
+      mutation: RefreshTokenDocument,
+      variables: { input: { token: token } },
+    }));
+  } catch (error) {
+    throw error;
+  }
+  if (!data) {
+    return null;
+  }
 
   const { refreshToken } = data;
 
@@ -52,7 +58,6 @@ const refresh = async (
 
   for (let r = 0; r < RETRIES; r++) {
     result = await handleRefresh(() => refreshMutation(token));
-
     if (result) break;
 
     // Simple exponential backoff with jitter
@@ -61,7 +66,12 @@ const refresh = async (
     await new Promise((resolve) => setTimeout(resolve, sleep));
   }
 
-  if (!result && onError) await onError();
+  if (!result) {
+    if (onError) {
+      await onError();
+    }
+  } else {
+  }
 
   return result;
 };

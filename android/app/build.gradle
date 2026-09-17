@@ -94,6 +94,7 @@ android {
         targetSdkVersion 36
         versionCode 1662677956
         versionName "4.0.4"
+        manifestPlaceholders = [appLinkHost: "intellicomfort-development.yoursysteminfo.com"]
     }
     signingConfigs {
         debug {
@@ -112,6 +113,7 @@ android {
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
+            manifestPlaceholders = [appLinkHost: "intellicomfort-development.yoursysteminfo.com"]
         }
         release {
             // Caution! In production, you need to generate your own keystore file.
@@ -121,6 +123,7 @@ android {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
             crunchPngs (findProperty('android.enablePngCrunchInReleaseBuilds')?.toBoolean() ?: true)
+            manifestPlaceholders = [appLinkHost: "intellicomfort.yoursysteminfo.com"]
         }
     }
     packagingOptions {
